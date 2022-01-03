@@ -1,0 +1,21 @@
+server:
+  port: 9100
+  servlet:
+    context-path: /rabbitmq
+
+spring:
+  profiles:
+    active: @profiles.active@
+  rabbitmq:
+    virtual-host: /tree
+    #开启消息二次确认,生产者到broker的交换机
+    publisher-confirm-type: CORRELATED
+    #开启消息二次确认，交换机到队列的可靠性投递，开启returnCallback配置
+    publisher-returns: true
+    listener:
+      simple:
+        #开启ack（消费者接受到消息时手动确认）
+        acknowledge-mode: MANUAL
+
+logging:
+  config: classpath:logback-black.xml
